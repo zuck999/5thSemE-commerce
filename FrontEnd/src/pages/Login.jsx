@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Button } from './ui/button'
-import { Input } from './ui/input'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
@@ -34,6 +34,7 @@ function Login() {
                 },
                 withCredentials:true
             });
+            console.log(">>>",res)
             if(res.data.success){
                 toast.success(res.data.message);
                 setInput({

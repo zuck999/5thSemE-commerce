@@ -1,7 +1,7 @@
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
-import Signup from './components/Signup';
-import Login from './components/Login';
-import Home from './components/Home';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import HomePage from './pages/HomePage';
 // import Mainlayout from './components/Mainlayout';
 
 
@@ -9,13 +9,7 @@ import Home from './components/Home';
 const brousingRouter = createBrowserRouter([
   {
     path:"/",
-    element:<Home/>,
-    // children:[
-    //   {
-    //     path:'/',
-    //     element:</>
-    //   }
-    // ]
+    element:<HomePage/>,
   },
   {
     path:"/signup",

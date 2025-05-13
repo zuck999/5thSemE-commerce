@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Button } from './ui/button'
-import { Input } from './ui/input'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ function Signup() {
     const [loder , setLoder] = useState(false);
 
     const [input , setInput] = useState({
-        username:"",
+        name:"",
         email:"",
         password:""
     });
@@ -39,7 +39,7 @@ function Signup() {
                 toast.success(res.data.message);
                 navicate('/login')
                 setInput({
-                    username:'',
+                    name:'',
                     email:"",
                     password:""
                 });
@@ -58,7 +58,6 @@ function Signup() {
 
 <div className='flex items-center w-screen h-screen justify-center'>
     <form onSubmit={signupHandler} className='shadow-xl shadow-rose-100 flex flex-col gap-5 p-8 rounded-lg'>
-
         <div>
             <h1 className='text-center font-bold'>LOGO</h1>
             <p className='text-center px-14'>e-commerce</p>
@@ -66,7 +65,7 @@ function Signup() {
 
         <div >
         <span className="py-2 font-medium ">username</span>
-        <Input type="text" value={input.username} name="username" onChange={changeEventHandler}  className="focus-visible:ring-transparent"/>
+        <Input type="text" value={input.name} name="name" onChange={changeEventHandler}  className="focus-visible:ring-transparent"/>
         </div>
 
 
