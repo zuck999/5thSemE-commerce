@@ -1,5 +1,5 @@
 
-import { User } from "../model/user.model.js";
+import User  from "../model/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt  from "jsonwebtoken";
 import path from 'path';
@@ -10,9 +10,9 @@ path.resolve('../model/user.model.js');
 export const register = async (req,res)=>{
     try{
         
-        const {username,email,password} = req.body;
+        const {name,email,password} = req.body;
         console.log("req.body>>",req.body);
-        if(!email||!password||!username){
+        if(!email||!password||!name){
             return res.status(401).json({
                 message:"All fields are required",
                 success:false
@@ -23,14 +23,14 @@ export const register = async (req,res)=>{
         const user = await User.findOne({email});
         if(user){
             return res.status(401).json({
-                message:"username already exist",
+                message:"user already exist",
                 success:false
             });
         };
 
         let hashedPassword = await bcrypt.hash(password,10);
         await User.create({
-            username,
+            name,
             email,
             password:hashedPassword
         });
@@ -80,14 +80,14 @@ export const login = async(req,res)=>{
 
         user = {
             _id:user._id,
-            username:user.username,
+            name:user.name,
             email:user.email,
         }
         const token = await jwt.sign({userId:user._id},process.env.SECRET_KEY,{expiresIn:"1d"});
         
 
         return res.cookie("token",token,{httpOnly:true,sameSite:"strict",maxAge: 1*24*60*60*1000}).json({
-            message:`hello ${user.username} 👋`,
+            message:`hello ${user.name} 👋`,
             success: true,
             user
         });
