@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                     // Specifies the ECMAScript target version.
+    "module": "ESNext",                    // Enables ESM syntax.
+    "moduleResolution": "node",            // Use Node.js resolution for ESM modules.
+    "outDir": "./dist",                    // Output directory for compiled files.
+    "rootDir": "./src",                    // Root directory of the source files.
+    "strict": true,                        // Enables strict type-checking options.
+    "esModuleInterop": true,               // Ensures interoperability with CommonJS modules.
+    "allowSyntheticDefaultImports": true, // Allows default import syntax for CommonJS modules.
+    "forceConsistentCasingInFileNames": true, // Enforces consistent casing in file names.
+    "skipLibCheck": true                   // Skips type checking of declaration files.
+  },
+  "include": ["src/**/*"],                 // Includes all files in the `src` folder.
+  "exclude": ["node_modules", "dist"]      // Excludes `node_modules` and `dist` folders.
+}
