@@ -107,10 +107,11 @@ export const login = async (req:Request, res:Response):Promise<any> => {
 			setCookies(res, accessToken, refreshToken);
 
 			res.json({
+				user:{
 				_id: user._id,
 				name: user.name,
 				email: user.email,
-				role: user.role,
+				role: user.role},success:true
 			});
 
 		} else {
