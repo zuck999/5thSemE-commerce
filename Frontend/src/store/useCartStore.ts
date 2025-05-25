@@ -63,10 +63,10 @@ export const useUserStore = create<UserState>((set, get) => ({
 			const res = await axios.post("/auth/login",{ email, password });
 			if(res.data.success){
 				set({ user: res.data.user, loading: false });
-				toast.success("login successful !");
+				toast.success(`Hello ${get()?.user?.name} 👋🏻 `);
 				navigate("/")
 			}
-			
+
 		} catch (error:any) {
 			toast.error(error.response.data.message);
 		}finally{
@@ -78,6 +78,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 		try {
 			await axios.post("/auth/logout");
 			set({ user: null });
+			toast.success("logout successfully !");
 			navigate("/login")
 		} catch (error:any) {
 			toast.error(error.response?.data?.message || "An error occurred during logout");
@@ -109,4 +110,3 @@ export const useUserStore = create<UserState>((set, get) => ({
 		}
 	},
 }));
-
