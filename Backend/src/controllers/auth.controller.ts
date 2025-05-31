@@ -10,8 +10,6 @@ interface RefreshToken{
 
 interface jwtPayload extends JwtPayload{
 	userId?: string
-	iat?: number
-	exp?: number
 }
 
 const generateTokens = (userId: string): RefreshToken => {

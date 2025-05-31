@@ -1,5 +1,6 @@
 
-import { useUserStore } from "@/store/useCartStore";
+import { useCartStore } from "@/store/useCartStore";
+import { useUserStore } from "../../store/useUserStore";
 import { ShoppingCart, LogOut, Lock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,6 +10,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 	const isAdmin = user?.role === "admin";
 	console.log("user>>",user)
+  	const { cart } = useCartStore();
+
 
 
   return (
@@ -45,6 +48,14 @@ const Navbar = () => {
 
               <ShoppingCart className="inline-block mr-1 group-hover:text-amber-50" size={20} />
               <span className="hidden sm:inline">Cart</span>
+              								{cart.length > 0 && (
+									<span
+										className='absolute -top-2 -left-2 bg-amber-50 text-black rounded-full px-2 py-0.5 
+									text-xs group-hover:bg-amber-100 transition duration-300 ease-in-out'
+									>
+										{cart.length}
+									</span>
+								)}
             </Link>
 
             <button

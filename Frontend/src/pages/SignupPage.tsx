@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import type { ChangeEvent } from "react";
-import { useUserStore } from '@/store/useCartStore';
+import { useUserStore } from '../store/useUserStore';
 
 function SignupPage() {
 

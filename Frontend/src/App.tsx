@@ -1,13 +1,14 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import { Toaster } from "sonner";
 import './index.css';
 import Nevbar from "./components/ui/Nevbar"
-import { useUserStore } from "./store/useCartStore";
+import { useUserStore } from "./store/useUserStore";
 import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
+import CartPage from "./pages/CartPage";
 
 
 const App: React.FC = () => {
@@ -27,6 +28,7 @@ console.log(user);
 						element={user?.role === "admin" ? <AdminPage /> : <Navigate to='/login' />}
 					/>
           <Route path='/category/:category' element={<CategoryPage />} />
+          <Route path='/cart' element={user ? <CartPage /> : <Navigate to='/login' />} />
 
           </Routes>
         </BrowserRouter>

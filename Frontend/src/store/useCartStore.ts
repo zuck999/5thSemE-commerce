@@ -1,112 +1,101 @@
 import { create } from "zustand";
-import axios from "../lib/axios.ts";
+import axios from "../lib/axios";
 import { toast } from "sonner";
-// import { ClockFading } from "lucide-react";
+import type { AxiosError, AxiosResponse } from "axios";
 
-
-
-interface UserState {
-  user: any; 
-  loading: boolean;
-  checkingAuth: boolean;
-
-
-  signup: (params: SignupParams, navigate: (path: string) => void) => Promise<any>;
-  login: (email: string, password: string, navigate: (path: string) => void) => Promise<void>;
-  logout: (navigate: (path: string) => void) => Promise<void>;
-  checkAuth: () => Promise<void>;
-  refreshToken: () => Promise<any>; 
-}
-
-
-interface SignupParams {
+// Define the Product interface (consistent with ProductCard.tsx)
+interface Product {
+  _id: string;
   name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  image: string;
+  price: number;
+  quantity?: number;
+  [key: string]: any;
 }
 
 
-export const useUserStore = create<UserState>((set, get) => ({
+interface CartState {
+  cart: Product[];
+  total: number;
+  getCartItems: () => Promise<any>;
+  clearCart: () => void;
+  addToCart: (product: Product) => Promise<void>;
+  removeFromCart: (productId: string) => Promise<void>;
+  updateQuantity: (productId: string, quantity: number) => Promise<void>;
+  calculateTotals: () => void;
+}
 
-	user: null,
-	loading: false,
-	checkingAuth: true,
+export const useCartStore = create<CartState>((set, get) => ({
+  cart: [],
+  total: 0,
 
-	signup: async ({ name, email, password, confirmPassword }:SignupParams,navigate) => {
-		set({ loading: true });
+  getCartItems: async () => {
+    try {
+      const res: AxiosResponse<Product[]> = await axios.get("/cart");
+	  console.log("cart res>>",res);
+      set({ cart: res.data });
+      get().calculateTotals();
+    } catch (error) {
+      set({ cart: [] });
+      toast.error((error as AxiosError<{ message?: string }>).response?.data?.message || "An error occurred");
+    }
+  },
 
-		if (password !== confirmPassword) {
-			set({ loading: false });
-			return toast.error("Passwords do not match");
-		}
+  clearCart: () => {
+    set({ cart: [], total: 0 });
+  },
 
-		try {
-			const res = await axios.post("/auth/signup", { name, email, password });
-			console.log("signup>>>>>",res)
-			if(res.data.success){
-				toast.success("Signed up successfully!");
-				set({ user: res.data.user, loading: false });
-				navigate("/login")
-			}
-		} catch (error:any) {
-			set({ loading: false });
-			toast.error(error.response.data.message || "An error occurred");
-		}
-	},
+  addToCart: async (product: Product) => {
+    try {
+      await axios.post("/cart", { productId: product._id });
 
+      set((prevState) => {
+        const existingItem = prevState.cart.find((item) => item._id === product._id);
+		existingItem?toast.error(product.name + "is already in your cart"): toast.success(product.name + " added to cart ");
+        const newCart = existingItem
+          ? prevState.cart.map((item) =>
+              item._id === product._id ? { ...item, quantity: (item.quantity || 1) + 1 } : item
+            )
+          : [...prevState.cart, { ...product, quantity: 1 }];
+        return { cart: newCart };
+      });
+      get().calculateTotals();
+    } catch (error) {
+      toast.error((error as AxiosError<{ message?: string }>).response?.data?.message || "An error occurred");
+    }
+  },
 
-	login: async (email, password , navigate) => {
-		set({ loading: true });
+  removeFromCart: async (productId: string) => {
+    try {
+      await axios.delete("/cart", { data: { productId } });
+      set((prevState) => ({ cart: prevState.cart.filter((item) => item._id !== productId) }));
+      get().calculateTotals();
+    } catch (error) {
+      toast.error((error as AxiosError<{ message?: string }>).response?.data?.message || "An error occurred");
+    }
+  },
 
-		try {
-			const res = await axios.post("/auth/login",{ email, password });
-			if(res.data.success){
-				set({ user: res.data.user, loading: false });
-				toast.success(`Hello ${get()?.user?.name} 👋🏻 `);
-				navigate("/")
-			}
+  updateQuantity: async (productId: string, quantity: number) => {
+    if (quantity === 0) {
+      await get().removeFromCart(productId);
+      return;
+    }
 
-		} catch (error:any) {
-			toast.error(error.response.data.message);
-		}finally{
-			set({ loading: false });
-		}
-	},
+    try {
+      await axios.put(`/cart/${productId}`, { quantity });
+      set((prevState) => ({
+        cart: prevState.cart.map((item) => (item._id === productId ? { ...item, quantity } : item)),
+      }));
+      get().calculateTotals();
+    } catch (error) {
+      toast.error((error as AxiosError<{ message?: string }>).response?.data?.message || "An error occurred");
+    }
+  },
 
-	logout: async (navigate) => {
-		try {
-			await axios.post("/auth/logout");
-			set({ user: null });
-			toast.success("logout successfully !");
-			navigate("/login")
-		} catch (error:any) {
-			toast.error(error.response?.data?.message || "An error occurred during logout");
-		}
-	},
-
-	checkAuth: async () => {
-		set({ checkingAuth: true });
-		try {
-			const response = await axios.get("/auth/profile");
-			set({ user: response.data, checkingAuth: false });
-		} catch (error:any) {
-			console.log(error.message);
-			set({ checkingAuth: false, user: null });
-		}
-	},
-
-	refreshToken: async () => {
-		if (get().checkingAuth) return;
-
-		set({ checkingAuth: true });
-		try {
-			const response = await axios.post("/auth/refresh-token");
-			set({ checkingAuth: false });
-			return response.data;
-		} catch (error:any) {
-			set({ user: null, checkingAuth: false });
-			throw error;
-		}
-	},
+  calculateTotals: () => {
+    const { cart } = get();
+    const subtotal = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+    const total = subtotal;
+    set({ total });
+  },
 }));

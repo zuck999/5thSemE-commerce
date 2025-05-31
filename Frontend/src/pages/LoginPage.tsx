@@ -5,7 +5,7 @@ import type { ChangeEvent } from "react";
 import { Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useUserStore } from "../store/useCartStore.ts";
+import { useUserStore } from "../store/useUserStore.ts";
 
 
 
