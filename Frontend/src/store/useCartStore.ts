@@ -3,7 +3,7 @@ import axios from "../lib/axios";
 import { toast } from "sonner";
 import type { AxiosError, AxiosResponse } from "axios";
 
-// Define the Product interface (consistent with ProductCard.tsx)
+
 interface Product {
   _id: string;
   name: string;
@@ -94,8 +94,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 
   calculateTotals: () => {
     const { cart } = get();
-    const subtotal = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-    const total = subtotal;
+    const total = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
     set({ total });
   },
 }));

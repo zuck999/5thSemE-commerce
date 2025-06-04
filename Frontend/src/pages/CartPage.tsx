@@ -16,8 +16,8 @@ const CartPage = () => {
 						className='mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl'
 						initial={{ opacity: 0, x: -20 }}
 						animate={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.5, delay: 0.2 }}
-					>
+						transition={{ duration: 0.5, delay: 0.2 }}>
+
 						{cart.length === 0 ? (
 							<EmptyCartUI />
 						) : (
@@ -58,9 +58,7 @@ const EmptyCartUI = () => (
 		<h3 className='text-2xl font-semibold '>Your cart is empty</h3>
 		<p className='text-gray-400'>Looks like you {"haven't"} added anything to your cart yet.</p>
 		<Link
-			className='mt-4 rounded-md bg-emerald-500 px-6 py-2 text-white transition-colors hover:bg-emerald-600'
-			to='/'
-		>
+			className='mt-4 rounded-md bg-amber-50 px-6 py-2 text-black transition-colors hover:bg-amber-50' to='/'>
 			Start Shopping
 		</Link>
 	</motion.div>

@@ -54,7 +54,7 @@ const CreateProductForm: React.FC = () => {
       reader.onloadend = () => {
         setNewProduct({ ...newProduct, image: reader.result as string });
       };
-      reader.readAsDataURL(file); // base64
+      reader.readAsDataURL(file);
     }
   };
 

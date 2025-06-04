@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Chart } from "./ chart";
 
 
 const AnimatedAnalyticsTab: React.FC = () => {
@@ -6,11 +7,8 @@ const AnimatedAnalyticsTab: React.FC = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 0.8, y: 0 }}
-      transition={{ duration: 10 , repeat: Infinity ,ease: "easeInOut"}}
-      className="flex justify-center items-center text-9xl text-white"
-    >
-
-      AnalyticsTab
+      transition={{ duration: 1}}>
+      <Chart/>
     </motion.div>
   );
 };

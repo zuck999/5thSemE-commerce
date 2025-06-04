@@ -1,7 +1,10 @@
 import { create } from "zustand";
 import axios from "../lib/axios.ts";
 import { toast } from "sonner";
-// import { ClockFading } from "lucide-react";
+import { useCartStore } from "./useCartStore.ts";
+
+
+
 
 
 
@@ -55,7 +58,6 @@ export const useUserStore = create<UserState>((set, get) => ({
 		}
 	},
 
-
 	login: async (email, password , navigate) => {
 		set({ loading: true });
 
@@ -68,18 +70,22 @@ export const useUserStore = create<UserState>((set, get) => ({
 			}
 
 		} catch (error:any) {
-			toast.error(error.response.data.message);
+			console.log(error.data);
+			toast.error("Login error!!!");
 		}finally{
 			set({ loading: false });
 		}
 	},
 
 	logout: async (navigate) => {
+	const clearCart = useCartStore.getState().clearCart;
+
 		try {
 			await axios.post("/auth/logout");
 			set({ user: null });
 			toast.success("logout successfully !");
 			navigate("/login")
+			clearCart();
 		} catch (error:any) {
 			toast.error(error.response?.data?.message || "An error occurred during logout");
 		}
@@ -110,3 +116,4 @@ export const useUserStore = create<UserState>((set, get) => ({
 		}
 	},
 }));
+

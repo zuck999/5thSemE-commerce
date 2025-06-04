@@ -9,6 +9,8 @@ import { useUserStore } from "./store/useUserStore";
 import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
+import { Chart } from "./components/ chart";
+
 
 
 const App: React.FC = () => {
@@ -30,6 +32,7 @@ console.log(user);
           <Route path='/category/:category' element={<CategoryPage />} />
           <Route path='/cart' element={user ? <CartPage /> : <Navigate to='/login' />} />
 
+          <Route path='/chart' element={<Chart />} />
           </Routes>
         </BrowserRouter>
       </div>
