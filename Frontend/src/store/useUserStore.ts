@@ -4,10 +4,6 @@ import { toast } from "sonner";
 import { useCartStore } from "./useCartStore.ts";
 
 
-
-
-
-
 interface UserState {
   user: any; 
   loading: boolean;

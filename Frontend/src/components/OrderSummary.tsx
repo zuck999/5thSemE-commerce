@@ -39,12 +39,12 @@ const handlePayment = async () => {
 
 	return (
 		<motion.div
-			className='space-y-4 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-sm sm:p-6'
+			className='space-y-4 rounded-lg border border-gray-700 bg-[#0b0b0be8] p-4 shadow-sm sm:p-6'
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}
 		>
-			<p className='text-xl font-semibold text-emerald-400'>Order summary</p>
+			<p className='text-xl font-semibold text-amber-50'>Order summary</p>
 
 			<div className='space-y-4'>
 				<div className='space-y-2 '>
@@ -81,12 +81,12 @@ const handlePayment = async () => {
 
 					<dl className='flex items-center justify-between gap-4 border-t border-gray-600 pt-2'>
 						<dt className='text-base font-bold text-white'>Total</dt>
-						<dd className='text-base font-bold text-emerald-400'>${total}</dd>
+						<dd className='text-4xl font-bold text-emerald-400'>${total}</dd>
 					</dl>
 				</div>
 
 				<motion.button
-					className='flex w-full items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300'
+					className='flex w-full items-center justify-center rounded-lg bg-amber-50 px-5 py-2.5 text-sm font-medium text-black hover:bg-amber-100 focus:outline-none focus:ring-4'
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					onClick={()=>{handlePayment()}}
@@ -98,7 +98,7 @@ const handlePayment = async () => {
 					<span className='text-sm font-normal text-gray-400'>or</span>
 					<Link
 						to='/'
-						className='inline-flex items-center gap-2 text-sm font-medium text-emerald-400 underline hover:text-emerald-300 hover:no-underline'
+						className='inline-flex items-center gap-2 text-sm font-medium text-amber-50 underline  hover:no-underline'
 					>
 						Continue Shopping
 						<MoveRight size={16} />

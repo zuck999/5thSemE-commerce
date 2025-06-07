@@ -36,7 +36,7 @@ interface PaymentStore {
   error?: string;
 
   initiatePayment: (payload: PaymentInitiatePayload) => Promise<void>;
-  verifyPayment: (pidx: string) => Promise<void>;
+verifyPayment: (pidx: string) => Promise<VerifyPaymentResponse>;
 }
 
 const usePaymentStore = create<PaymentStore>((set) => ({
@@ -66,8 +66,9 @@ const usePaymentStore = create<PaymentStore>((set) => ({
         { pidx }
       );
       set({ verifyResponse: data, error: undefined });
+      return data;
     } catch (error: any) {
-      set({ error: error.response?.data || error.message, verifyResponse: undefined });
+      throw new Error(error.response?.data || error.message);
     }
   }
 

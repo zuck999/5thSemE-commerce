@@ -34,7 +34,7 @@ function SignupPage() {
 <div className="flex items-center justify-center min-h-screen w-full px-4 sm:px-8 md:px-16 lg:px-32 overflow-y-hidden">
     <form
         onSubmit={signupHandler}
-        className="shadow-xl/30 shadow-red-50/50 border border-zinc-800 w-full max-w-sm sm:max-w-md lg:max-w-lg flex flex-col gap-5 p-6 sm:p-8 md:p-10 rounded-lg"
+        className="bg-[#0a0a0a] shadow-xl/30 shadow-red-50/50 border border-zinc-800 w-full max-w-sm sm:max-w-md lg:max-w-lg flex flex-col gap-5 p-6 sm:p-8 md:p-10 rounded-lg"
     >
         <div>
             <h1 className="text-center font-bold text-2xl sm:text-3xl">Signup</h1>

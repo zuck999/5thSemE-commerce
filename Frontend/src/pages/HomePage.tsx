@@ -26,11 +26,12 @@ const HomePage = () => {
 		animate={{ opacity: 1, y: 0 }}
 		transition={{ duration: 0.5 }}
 		>
-			<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-				<h1 className='text-center text-5xl sm:text-6xl font-bold text-white mb-4'>
-					Explore Our Categories
-				</h1>
-				<p className='text-center text-xl text-gray-300 mb-12'>
+			<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10'>
+				<p className="relative z-20 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-2 pb-8 text-3xl font-bold text-transparent sm:text-7xl text-center ">
+						Shop the Best, Forget the Rest				
+				</p>
+
+				<p className='relative z-20 bg-gradient-to-r from-neutral-200 to-neutral-600  bg-clip-text py-2 pb-8  font-bold text-transparent  text-center'>
 					Explore a world of fashion, tech, and essentials—all in one place
 				</p>
 

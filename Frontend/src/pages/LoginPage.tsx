@@ -28,10 +28,10 @@ function LoginPage() {
 
   return (
     <>
-      <div className='flex items-center justify-center w-[100vw] h-[100vh] overflow-y-hidden py-auto fixed'>
+      <div className='flex items-center justify-center w-[100vw] h-[100vh] overflow-y-hidden py-auto fixe'>
         <form 
           onSubmit={logoutHandler} 
-          className='mr-5 shadow-xl/30 shadow-red-50/50 border border-zinc-800 w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[31vw] max-w-md flex flex-col gap-5 p-4 sm:p-6 md:p-8 rounded-lg'
+          className='bg-[#0a0a0a] mr-5 shadow-xl/30 shadow-red-50/50 border border-zinc-800 w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[31vw] max-w-md flex flex-col gap-5 p-4 sm:p-6 md:p-8 rounded-lg'
         >
           <div>
             <h1 className='text-center font-bold text-lg sm:text-xl md:text-2xl'>Login</h1>

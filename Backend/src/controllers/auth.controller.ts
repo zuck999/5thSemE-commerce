@@ -162,3 +162,11 @@ export const refreshToken = async (req:Request, res:Response):Promise<any> => {
 		res.status(500).json({ message: "Server error", error: error.message });
 	}
 };
+
+export const getProfile = async (req:Request, res:Response) => {
+	try {
+		res.json((req as any).user);
+	} catch (error:any) {
+		res.status(500).json({ message: "Server error", error: error.message });
+	}
+};
