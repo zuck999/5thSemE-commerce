@@ -120,7 +120,7 @@ const chartData = [
   { date: "2024-06-28", sales: 1439, revenue: 2235 },
   { date: "2024-06-29", sales: 1033, revenue: 1545 },
   { date: "2024-06-30", sales: 4436, revenue: 6690 }
-]
+];
 
 const chartConfig = {
   sales: {

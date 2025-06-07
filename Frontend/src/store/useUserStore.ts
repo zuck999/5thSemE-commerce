@@ -25,6 +25,7 @@ interface UserState {
 interface SignupParams {
   name: string;
   email: string;
+  phone:string;
   password: string;
   confirmPassword: string;
 }
@@ -36,7 +37,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 	loading: false,
 	checkingAuth: true,
 
-	signup: async ({ name, email, password, confirmPassword }:SignupParams,navigate) => {
+	signup: async ({ name, email, password, confirmPassword ,phone }:SignupParams,navigate) => {
 		set({ loading: true });
 
 		if (password !== confirmPassword) {
@@ -45,7 +46,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 		}
 
 		try {
-			const res = await axios.post("/auth/signup", { name, email, password });
+			const res = await axios.post("/auth/signup", { name, email, password , phone });
 			console.log("signup>>>>>",res)
 			if(res.data.success){
 				toast.success("Signed up successfully!");
@@ -116,4 +117,3 @@ export const useUserStore = create<UserState>((set, get) => ({
 		}
 	},
 }));
-

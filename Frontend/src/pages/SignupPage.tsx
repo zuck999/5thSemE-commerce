@@ -15,6 +15,7 @@ function SignupPage() {
     const [input, setInput] = useState({
         name: "",
         email: "",
+        phone:"",
         password: "",
         confirmPassword: ""
     });
@@ -38,7 +39,7 @@ function SignupPage() {
         <div>
             <h1 className="text-center font-bold text-2xl sm:text-3xl">Signup</h1>
             <p className="text-center text-sm sm:text-base px-6 sm:px-8 md:px-14 text-gray-400">
-                Enter your email below to sign
+                Enter your data below to sign up.
             </p>
         </div>
 
@@ -59,6 +60,17 @@ function SignupPage() {
                 type="email"
                 value={input.email}
                 name="email"
+                onChange={changeEventHandler}
+                className="focus-visible:ring-1 border border-zinc-800 w-full"
+            />
+        </div>
+
+        <div>
+            <span className="py-2 font-medium text-sm sm:text-base">Phone number</span>
+            <Input
+                type="tel"
+                value={input.phone}
+                name="phone"
                 onChange={changeEventHandler}
                 className="focus-visible:ring-1 border border-zinc-800 w-full"
             />

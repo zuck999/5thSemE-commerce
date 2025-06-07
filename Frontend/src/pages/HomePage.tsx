@@ -1,5 +1,4 @@
 import CategoryItem from "@/components/ui/Categoryitems";
-import { useEffect } from "react";
 // import CategoryItem from "../components/CategoryItem";
 // import { useProductStore } from "../stores/useProductStore";
 // import FeaturedProducts from "../components/FeaturedProducts";
@@ -32,7 +31,7 @@ const HomePage = () => {
 					Explore Our Categories
 				</h1>
 				<p className='text-center text-xl text-gray-300 mb-12'>
-          Explore a world of fashion, tech, and essentials—all in one place
+					Explore a world of fashion, tech, and essentials—all in one place
 				</p>
 
 				 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'> 

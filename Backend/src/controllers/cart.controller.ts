@@ -25,6 +25,7 @@ export const addToCart = async (req:Request, res:Response):Promise<any>  => {
         // req as CustomRequest;
 
 	try {
+		
 		const { productId } = req.body;
 		const user = (req as any).user;
 

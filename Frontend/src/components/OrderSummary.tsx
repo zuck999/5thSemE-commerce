@@ -2,16 +2,40 @@ import { motion } from "framer-motion";
 import { useCartStore } from "../store/useCartStore";
 import { Link } from "react-router-dom";
 import { MoveRight, X } from "lucide-react";
-import { useAddOrSubQuentity } from "@/store/useItemStroe";
+import { useUserStore } from "@/store/useUserStore";
+import usePaymentStore from "@/store/usePayment";
+
 
 
 const OrderSummary=() => {
 	const { total } = useCartStore();
     	const {cart} = useCartStore();
+    	const {user} = useUserStore();
+		const {initiatePayment} = usePaymentStore();
 
 
-        const {item} = useAddOrSubQuentity()
-    
+const handlePayment = async () => {
+  const payload = {
+	return_url: "http://localhost:5173/payment-success",
+    website_url: "http://localhost:3000",
+	amount: total * 100, 
+    purchase_order_id: "order123",
+    purchase_order_name: "My Product",
+    customer_info: {
+      name: `${user.name}`,
+      email: `${user.email}`,
+      phone: `${user.phone}`,
+    },
+  };
+
+  try {
+    await initiatePayment(payload);
+
+    console.log("Payment initiated");
+  } catch (error) {
+    console.error("Payment initiation error:", error);
+  }
+};
 
 	return (
 		<motion.div
@@ -65,9 +89,9 @@ const OrderSummary=() => {
 					className='flex w-full items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300'
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
-					onClick={()=>{}}
+					onClick={()=>{handlePayment()}}
 				>
-					Proceed to Checkout
+					Pay with Khalti
 				</motion.button>
 
 				<div className='flex items-center justify-center gap-2'>
@@ -84,4 +108,5 @@ const OrderSummary=() => {
 		</motion.div>
 	);
 };
+
 export default OrderSummary;

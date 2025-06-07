@@ -45,7 +45,11 @@ const setCookies = (res:Response, accessToken:string, refreshToken:string) => {
 
 export const signup = async (req:Request , res:Response):Promise<any>=> {
 
-	const { email, password, name } = req.body;
+	const { email, password, name ,phone } = req.body;
+
+	if(!email || !password || !name || !phone){
+		return res.status(400).json({ message: "All fields are required" , success:false });
+	}
 
 	try {
 		const userExists = await User.findOne({ email });
@@ -54,7 +58,7 @@ export const signup = async (req:Request , res:Response):Promise<any>=> {
 			return res.status(400).json({ message: "User already exists",success:false });
 		}
 
-		const user = await User.create({ name, email, password });
+		const user = await User.create({ name, email, password , phone});
 
 		const { accessToken, refreshToken } = generateTokens(user._id.toString());
 		await storeRefreshToken(user._id.toString(), refreshToken);
@@ -66,6 +70,7 @@ export const signup = async (req:Request , res:Response):Promise<any>=> {
 			name: user.name,
 			email: user.email,
 			role: user.role,
+			phone: user.phone
 		},message:"user created successfully!!",success:true});
 		
 	} catch (error:any) {
@@ -94,26 +99,30 @@ export const logout = async (req:Request, res:Response):Promise<any> => {
 
 
 export const login = async (req:Request, res:Response):Promise<any> => {
-
 	try {
 		const { email, password } = req.body;
 		const user = await User.findOne({ email });
 
+		console.log("password match>>>>",await (user as any).comparePassword(password))
+		
 		if (user && (await (user as any).comparePassword(password))) {
 			const { accessToken, refreshToken } = generateTokens(user._id.toString());
 			await storeRefreshToken(user._id.toString(), refreshToken);
 			setCookies(res, accessToken, refreshToken);
-
+			
 			res.json({
 				user:{
 				_id: user._id,
 				name: user.name,
 				email: user.email,
-				role: user.role},success:true
+				role: user.role,
+				phone:user.phone
+				}
+				,success:true
 			});
 
 		} else {
-			res.status(400).json({ message: "Invalid email or password" , success:true });
+			res.status(400).json({ message: "Invalid email or password" , success: false });
 		}
 	} catch (error:any) {
 		console.log("Error in login controller", error.message);
