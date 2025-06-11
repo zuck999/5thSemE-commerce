@@ -100,6 +100,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 	},
 
 	refreshToken: async () => {
+		console.log("hello refresh token<><><>");
 		if (get().checkingAuth) return;
 
 		set({ checkingAuth: true });
