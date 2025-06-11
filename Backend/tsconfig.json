@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                     // ECMAScript target version
+    "module": "ESNext",                     // Use native ESM syntax
+    "moduleResolution": "bundler",          // Required for allowImportingTsExtensions
+    "outDir": "./dist",                     // Compiled output directory
+    "rootDir": "./src",                     // Root source directory
+    "strict": true,                         // Enable strict type checks
+    "esModuleInterop": true,                // Interop between CommonJS and ESM
+    "allowSyntheticDefaultImports": true,  // Allow default import for CommonJS modules
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,    // Allows import statements with `.ts` extensions
+    "skipLibCheck": true,
+    "noEmit": true                         // Must be set when using allowImportingTsExtensions
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
